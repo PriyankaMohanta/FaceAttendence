@@ -55,19 +55,19 @@ class Student:
             imgreshp=urllib.request.urlopen(URL)
             imgarray=np.array(bytearray(imgreshp.read()),dtype=np.uint8)
     
-            frame=cv2.imdecode(imgarray,-1)
+            img=cv2.imdecode(imgarray,-1)
     
-            frame=cv2.resize(frame,(680,420))
+            img=cv2.resize(img,(800,500))
     
-            faces=cascade.detectMultiScale(frame)
+            faces=cascade.detectMultiScale(img)
     
             
             for x,y,w,h in faces:
-                cv2.rectangle(frame,(x,y),(x+w,y+h),
+                cv2.rectangle(img,(x,y),(x+w,y+h),
                               (0,0,255),2)
-                cv2.putText(frame,'press q to capture',(10,470),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2)
-                face_img = frame[y:y+h,x:x+w]
-            cv2.imshow('cam',frame)
+                cv2.putText(img,'press q to capture',(10,470),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2)
+                face_img = img[y:y+h,x:x+w]
+            cv2.imshow('cam',img)
             
             if cv2.waitKey(1)==ord('q'):
                 break
@@ -90,9 +90,7 @@ class Student:
         curr.commit()
         curr.close()                                       
 
-s = Student()
-s.register(URL,'09','Namrata',
-           'MCCAI',8917684009,'123453')
+
 
 
 

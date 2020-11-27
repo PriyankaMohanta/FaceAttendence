@@ -6,6 +6,8 @@ Created on Tue Nov 24 16:10:29 2020
 """
 
 from PyQt5 import uic,QtWidgets
+from dbms import Student
+
 
 def gotostudent():
     frontPage.close()
@@ -46,6 +48,18 @@ def register():
 def backdash():
     registerPage.close()
     facultyDash.show()
+    
+def capturedata():
+    Sid=registerPage.lineEdit_2.text()
+    Sname=registerPage.lineEdit.text()
+    SclassId=registerPage.lineEdit_3.text()
+    SphoneNo=registerPage.lineEdit_2.text()
+    Spassword=registerPage.lineEdit_4.text()
+    URL=registerPage.lineEdit_6.text()
+    
+    s=Student()
+    s.register(URL,Sid,Sname,SclassId,SphoneNo,Spassword)
+    
 
 
 
@@ -70,6 +84,7 @@ facultyLoginpage.pushButton.clicked.connect(gotodash)
 facultyDash.pushButton_4.clicked.connect(bachome)
 facultyDash.pushButton_3.clicked.connect(register)
 registerPage.pushButton.clicked.connect(backdash)
+registerPage.pushButton_2.clicked.connect(capturedata)
 
 
 app.exec()
