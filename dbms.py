@@ -91,7 +91,32 @@ class Student:
         curr.close()                                       
 
 
+class Employee:
+    
+    def register_faculty(self,Eid,Ename,Ephone,Epassword,Etype):
+        
+        con = sql.connect('attendence_sys.db',detect_types=sql.PARSE_DECLTYPES)
 
+        query = """INSERT INTO employee_details(Eid,
+                                                Ename,
+                                                Ephone,
+                                                Epassword,
+                                                Etype) VALUES (?,?,?,?,?)"""
+        con.execute(query,(Eid,Ename,Ephone,Epassword,Etype))
+        con.commit()
+        con.close()
+        
+    def fetch_faculty(self,Ephone,Epassword):
+        con = sql.connect('attendence_sys.db',detect_types=sql.PARSE_DECLTYPES)
+
+        query = """SELECT * FROM employee_details WHERE Ephone=? AND Epassword=?"""
+        ret = con.execute(query,(Ephone,Epassword))
+        ret = ret.fetchall()
+        if len(ret)>0:
+            return {'Eid':ret[0][0],'Ename':ret[0][1],'Enumber':ret[0][2],'Etype':ret[0][4]}
+        else:
+            return False
+        con.close()
 
 
 
