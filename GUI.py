@@ -60,6 +60,21 @@ def capturedata():
     s=Student()
     s.register(URL,Sid,Sname,SclassId,SphoneNo,Spassword)
     
+def studentDash():
+    studentpage.close()
+    studentDashboard.show()
+
+def studentDashToHome():
+    studentDashboard.close()
+    frontPage.show()
+    
+    
+    
+    
+    
+#def view_attendance(self):
+    
+    
 
 
 
@@ -72,6 +87,7 @@ adminLoginpage=uic.loadUi('UiFiles/admin_login.ui')
 facultyDash=uic.loadUi('UiFiles/faculty_dashboard.ui')
 registerPage=uic.loadUi('UiFiles/student_register.ui')
 viewAttendence=uic.loadUi('UiFiles/view_attandence.ui')
+studentDashboard=uic.loadUi('UiFiles/student_dashboard.ui')
 
 frontPage.show()
 
@@ -86,6 +102,8 @@ facultyDash.pushButton_4.clicked.connect(bachome)
 facultyDash.pushButton_3.clicked.connect(register)
 registerPage.pushButton.clicked.connect(backdash)
 registerPage.pushButton_2.clicked.connect(capturedata)
+studentpage.pushButton.clicked.connect(studentDash)
+studentDashboard.pushButton_2.clicked.connect(studentDashToHome)
 
 
 app.exec()
