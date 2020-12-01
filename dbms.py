@@ -12,6 +12,7 @@ import io
 import urllib
 from keras_vggface import VGGFace
 from keras_vggface.utils import preprocess_input
+from datetime import timedelta,datetime
 
 model = VGGFace(model='resnet50',
                 include_top=False,
@@ -48,6 +49,8 @@ class Student:
         img = asarray(img,np.float32)
         img = preprocess_input(img,version=2)
         return img        
+    
+
     
     def register(self,URL,Sid,Sname,SclassId,SphoneNo,Spassword):
         
@@ -88,7 +91,45 @@ class Student:
         
         
         curr.commit()
-        curr.close()                                       
+        curr.close()  
+
+
+    def fetch_student_attendance(self,Sid,StartDate,EndDate):
+        curr=sql.connect("attendenceSym.db",detect_types=sql.PARSE_DECLTYPES)
+        query="""SELECT Sname FROM student_details WHERE Sid=?"""
+        
+        ret=curr.execute(query,(Sid,))
+        ret=ret.fetchall()
+        
+        if len(ret)>0:
+            atten={"Roll":[Sid],"Name":[ret[0][0]]}
+            
+        daterange=[]
+        
+        Start=datetime.strptime(StartDate,"%d-%m-%y")
+        End=datetime.strptime(EndDate,"%d-%m-%y")
+        Step=timedelta(days=1)
+        
+        while Start<=End:
+            daterange.append(Start.strftime("%d-%m-%y"))
+            Start=Start+Step
+        
+        for i in daterange:
+            query="""SELECT Sid FROM student_attandance WHERE date=?"""
+            
+            ret=curr.execute(query,(i,))
+            ret=ret.fetchall()
+            
+            ret=[x[0] for x in ret]
+            
+            if Sid in ret:
+                atten.update({i:["P"]})
+            else:
+                atten.update({i:["A"]})
+                
+        curr.close()
+        return atten
+
 
 
 class Employee:

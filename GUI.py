@@ -42,7 +42,7 @@ def bachome():
     frontPage.show()
     
 def register():
-    facultyDash.close()
+    facultyDash.close() 
     registerPage.show()
     
 def backdash():
@@ -71,6 +71,7 @@ facultyLoginpage=uic.loadUi('UiFiles/faculty_login.ui')
 adminLoginpage=uic.loadUi('UiFiles/admin_login.ui')
 facultyDash=uic.loadUi('UiFiles/faculty_dashboard.ui')
 registerPage=uic.loadUi('UiFiles/student_register.ui')
+viewAttendence=uic.loadUi('UiFiles/view_attandence.ui')
 
 frontPage.show()
 

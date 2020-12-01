@@ -17,7 +17,7 @@ from datetime import date
 from scipy.spatial.distance import cosine
 
 
-URL="http://10.32.156.218:8080/shot.jpg"
+URL="http://192.168.42.129:8080/shot.jpg"
 
 def adapt_array(arr):
     out = io.BytesIO()
@@ -76,6 +76,7 @@ while True:
                 conn=sql.connect("attendenceSym.db",detect_types=sql.PARSE_DECLTYPES)
                 query="""INSERT INTO student_attandance(Sid,date,attendance) VALUES(?,?,?)"""
                 conn.execute(query,(i[0],date.today().strftime('%d_%m_%y'),"P"))
+                conn.commit()
                 conn.close()
                 
     
